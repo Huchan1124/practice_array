@@ -1,27 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
-<body>
 
+<body>
+    <div id="app">
+        <ul>
+            <li v-for="member in members">{{member.name}}，{{member.age}} <button @click="temp = member">詳細資料</button>
+            </li>
+        </ul>
+        <template v-if="temp.name">
+            <p>{{temp.name}}</p>
+            <p>{{temp.age}}</p>
+
+        </template>
+        <template v-else>
+            <p>請選擇欲顯示資料</p>
+        </template>
+
+
+
+    </div>
+
+    <script>
+        const data = {
+            temp: "",
+            members: [
+                {
+                    name: "小明",
+                    age: 25
+                },
+                {
+                    name: "小美",
+                    age: 26
+                },
+                {
+                    name: "小東",
+                    age: 28
+                },
+            ]
+        }
+    </script>
 
     <script type="module">
-        import { test ,name} from "./module.js";
-        import defaultData from "./module.js";
-        console.log(test,name("小明"))   
-        console.log(defaultData.data)
-    
+        import { createApp } from "https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.26/vue.esm-browser.min.js";
 
-    
+        const app = {
+            data() {
+                return {
+                    ...data,
+
+                }
+            }
+        }
+
+        createApp(app).mount("#app");
+
+
+        // import { test ,name} from "./module.js";
+        // import defaultData from "./module.js";
+        // console.log(test,name("小明"))
+        // console.log(defaultData.data)
+
+
+
 
 
 
 
     </script>
-    
+
 </body>
+
 </html>

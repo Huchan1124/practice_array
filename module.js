@@ -6,7 +6,7 @@ export function name(name){
 
 
 
-    export default {
+export default {
         data: [
           // 資料
           '這是第一句話',
