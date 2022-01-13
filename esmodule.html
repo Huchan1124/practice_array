@@ -10,25 +10,19 @@
 
 <body>
     <div id="app">
-        <button style="margin-right: 3px;" v-for="tag in tags" @click = "filter">{{tag}}</button>
-        <!-- <ul>
-            <li v-for="movie in movies">{{movie.name}}，{{movie.tag}} <button @click="temp = movie">詳細資料</button>
-            </li>
-        </ul> -->
-        <template v-if="tempTag">
-          {{tempTag}}
-        </template>
-        <template v-if="temp.name">
-            {{temp}}
-            <!-- <p>{{temp.name}}</p>
-            <p>{{temp.tag}}</p> -->
+        <!-- <button style="margin-right: 3px;" ref="tagdom"  @click="filter"   value="洋片">123</button> -->
+        <button style="margin-right: 3px;" :ref="setItemRef" v-for="(tag,index) in tags" :data-id="index" :key="index" @click="filter(index)"
+            :value="tag">{{tag}}</button>
+        <template v-if ="temp != '' " v-for="item in temp" >
+            <p>電影:{{item.name}}</p>
+            <p>類型:{{item.tag}}</p> 
 
         </template>
-      <div v-else>
-        <p>請選擇欲顯示資料</p>
+        <div v-else>
+            <p>請選擇欲顯示資料</p>
 
-      </div>
-            
+        </div>
+
 
 
 
@@ -37,17 +31,18 @@
 
     <script>
 
-   
+
 
 
         const data = {
-            temp: "",
-            tempTag:"",
-            tags:[
+            temp: [],
+            tempTag: "",
+            tags: [
                 "洋片",
                 "日片",
                 "台片"
             ],
+            itemRefs: [],
             movies: [
                 {
                     name: "蜘蛛人",
@@ -76,11 +71,11 @@
             ]
         }
 
-      
+
     </script>
 
     <script type="module">
-        import { createApp } from "https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.26/vue.esm-browser.min.js";
+        import { createApp, ref } from "https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.26/vue.esm-browser.min.js";
 
         const app = {
             data() {
@@ -89,10 +84,16 @@
 
                 }
             },
-            methods:{
-                filter(){
-                  this.tempTag = "洋片";
-                  console.log(this.movies.filter((item) => item.tag === this.tempTag))
+            methods: {
+                filter(index) {
+                    this.tempTag =  this.itemRefs[index].value;
+                    this.temp = this.movies.filter((item) => item.tag === this.tempTag);
+                    console.log(this.temp)
+                },
+                setItemRef(el) {
+                    if (el) {
+                        this.itemRefs.push(el)
+                    }
                 }
             }
         }
