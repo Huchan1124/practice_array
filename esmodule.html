@@ -12,7 +12,7 @@
 
 <body>
     <div id="app">
-        <button style="margin-right: 3px;" :ref="setItemRef" v-for="(tag,index) in tags" :data-id="index" :key="index"
+        <button style="margin-right: 3px;" :ref="setItemRef" v-for="(tag,index) in tags" :data-id="index" :key="tag"
             @click="filter(index)" :value="tag">{{tag}}</button>
         <div style="display:flex">
             <div v-for="movie in movies" style="margin-right: 3px;" >
