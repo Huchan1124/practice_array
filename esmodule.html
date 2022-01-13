@@ -12,10 +12,16 @@
 
 <body>
     <div id="app">
+        <div style="margin-bottom: 5px;">
+            <input style="margin-right: 3px;" ref="movieName" type="text" placeholder="請輸入電影名稱">
+            <input style="margin-right: 3px;" ref="movieTag" type="text" placeholder="請輸入電影標籤">
+            <button @click="addMovie">新增</button>
+        </div>
+
         <button style="margin-right: 3px;" :ref="setItemRef" v-for="(tag,index) in tags" :data-id="index" :key="tag"
             @click="filter(index)" :value="tag">{{tag}}</button>
         <div style="display:flex">
-            <div v-for="movie in movies" style="margin-right: 3px;" >
+            <div v-for="movie in movies" style="margin-right: 3px;">
 
                 <p>電影:{{movie.name}}</p>
                 <p>類型:{{movie.tag}}</p>
@@ -23,7 +29,7 @@
             </div>
         </div>
 
-        <template v-if="temp != ''  " v-for="item in temp">
+        <template v-if="temp" v-for="item in temp">
             <p>電影:{{item.name}}</p>
             <p>類型:{{item.tag}}</p>
 
@@ -45,7 +51,7 @@
 
 
         const data = {
-            temp: [],
+            temp: "",
             tempTag: "",
             tags: [
                 "洋片",
@@ -98,7 +104,19 @@
                 filter(index) {
                     this.tempTag = this.itemRefs[index].value;
                     this.temp = this.movies.filter((item) => item.tag === this.tempTag);
-                    console.log(this.temp)
+                },
+                addMovie() {
+
+                    const name = this.$refs.movieName.value;
+                    const tag = this.$refs.movieTag.value;
+
+                    const obj = {
+                        name,
+                        tag
+                    };
+
+                    this.movies.push(obj);
+
                 },
                 setItemRef(el) {
                     if (el) {
