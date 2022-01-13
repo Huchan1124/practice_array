@@ -1,4 +1,4 @@
-export const test = "我是變數";
+export const test = "測試";
 
 export function name(name){
     console.log(`我是${name}`);

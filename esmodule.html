@@ -10,13 +10,18 @@
 
 <body>
     <div id="app">
-        <ul>
-            <li v-for="member in members">{{member.name}}，{{member.age}} <button @click="temp = member">詳細資料</button>
+        <button style="margin-right: 3px;" v-for="tag in tags" @click = "filter">{{tag}}</button>
+        <!-- <ul>
+            <li v-for="movie in movies">{{movie.name}}，{{movie.tag}} <button @click="temp = movie">詳細資料</button>
             </li>
-        </ul>
+        </ul> -->
+        <template v-if="tempTag">
+          {{tempTag}}
+        </template>
         <template v-if="temp.name">
-            <p>{{temp.name}}</p>
-            <p>{{temp.age}}</p>
+            {{temp}}
+            <!-- <p>{{temp.name}}</p>
+            <p>{{temp.tag}}</p> -->
 
         </template>
       <div v-else>
@@ -31,23 +36,47 @@
     </div>
 
     <script>
+
+   
+
+
         const data = {
             temp: "",
-            members: [
+            tempTag:"",
+            tags:[
+                "洋片",
+                "日片",
+                "台片"
+            ],
+            movies: [
                 {
-                    name: "小明",
-                    age: 25
+                    name: "蜘蛛人",
+                    tag: "洋片"
                 },
                 {
-                    name: "小美",
-                    age: 26
+                    name: "銀魂",
+                    tag: "日片"
                 },
                 {
-                    name: "小東",
-                    age: 28
+                    name: "藍色大門",
+                    tag: "台片"
+                },
+                {
+                    name: "大佛普拉斯",
+                    tag: "台片"
+                },
+                {
+                    name: "三年A班",
+                    tag: "日片"
+                },
+                {
+                    name: "史賓賽",
+                    tag: "洋片"
                 },
             ]
         }
+
+      
     </script>
 
     <script type="module">
@@ -58,6 +87,12 @@
                 return {
                     ...data,
 
+                }
+            },
+            methods:{
+                filter(){
+                  this.tempTag = "洋片";
+                  console.log(this.movies.filter((item) => item.tag === this.tempTag))
                 }
             }
         }

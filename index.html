@@ -10,6 +10,17 @@
 </head>
 
 <body>
+    <script type="module">
+        import { test ,name } from "./module.js";
+        import defaultExport from "./module.js";
+
+        console.log(test)
+        name(test);
+
+        console.log(defaultExport.data)
+
+    </script>
+   
 
     <!-- 1. 請一一列出每個人的訂單
     2. 小明看到今天有打八折！！，請將所有訂單新增一個新價格，金額是 80%
@@ -49,50 +60,108 @@
         people.forEach((item)=>{
             console.log(item)
         })
+
+   
+      
        
         // 2.小明看到今天有打八折！！，請將所有訂單新增一個新價格，金額是 80%
       
-    const newOrder = people.map((item) => ({
-        ...item,
-        newPrice: item.price *0.8
-    }))
-    console.log(newOrder)
+        // const newOrder = people.map((item)=>({
+        //     ...item,
+        //     newPrice: item.price * 0.8,
+
+        // }))
+
+        // const newOrder = [];
+
+        // people.forEach((item) => {
+        //     newOrder.push({
+        //         ...item,
+        //         newPrice:item.price *0.8,
+        //     })
+        // })
+
+        // console.log(newOrder)
 
         // console.log(newOrders)
         // 3. 老闆說，今天疫情沒有八折啦，不過 80 元的可以給滷蛋
       
-        const filterOrder = people.filter((item) => item.price>=80);
-        console.log(filterOrder);
-     
+    //   const filter = [];
+    //   people.forEach((item)=>{
+    //       if(item.price>=80){
+    //        filter.push(item)
+    //       }
+    //   })
+
+    //   console.log(filter)
+
+    // const filter = people.filter((item) => item.price >= 80);
+    // console.log(filter)
 
 
         // 4. 過一段時間後，老闆發現牛肉沒了，把點牛肉麵的換成牛肉湯麵
+        // let beefIndex = 0;
+        // people.forEach((item,index)=>{
+        //     if (item.order === "牛肉麵"){
+        //         beefIndex = index;
 
-        const beefIndex = people.findIndex((item)=> item.order ==="牛肉麵");
-        people[beefIndex].order = "牛肉湯麵";
-        console.log(people)
+        //     }
+
+        // });
+
+        // people[beefIndex].order = "牛肉湯麵";
+
+        // console.log(people)
+
+
+        // const beefIndex = people.findIndex((item)=> item.order === "牛肉麵")
+
+        // people[beefIndex].order = "牛肉湯麵";
+
+        // console.log(people);
+
+
+
+
     
         // 5. 老闆說 POS 機壞了，麻煩幫忙出一下 LI 結構，方便列印發票
 
-        const liTemplate = people.map((item) => `<li>${item.name},${item.price}</li>`).join("");
-        console.log(liTemplate)
-   
+      
+
+        // let temp = '';
+        // people.forEach((item)=>{
+        //     temp += `<li>${item.name}，${item.order}，${item.price}</li>`;
+        // })   
+         
+        // console.log(temp)
+
+
+        // const temp = people.map((item)=> `<li>${item.name}，${item.order}，${item.price}</li>`).join("");
+        
+        // console.log(temp)
 
 
         // / 6. 老闆要收錢了，請問老闆應該收多少錢
 
-        const total = people.reduce((acc,cur)=>{
-            return acc + cur.price; 
-        },0)
-   
+        // let total = 0;
+        // people.forEach((item)=>{
+        //     total += item.price;
+        // })
+
+        // console.log(total)
+
+        let total = people.reduce((acc,cur) => (acc + cur.price) , 0)
+
         console.log(total)
+   
+
         // 7. 今天誰吃最貴！請排序所有的金額 -->
 
-        const sort = people.sort((a,b)=>{
-          return  a.price - b.price;
-        })
-
+        const sort =  JSON.parse(JSON.stringify(people.sort((a,b)=> a.price - b.price)));
+        const sort2 = people.sort((a,b)=> b.price - a.price);
         console.log(sort)
+        console.log(sort2)
+
 
 
    
