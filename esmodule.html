@@ -6,16 +6,26 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+
+
 </head>
 
 <body>
     <div id="app">
-        <!-- <button style="margin-right: 3px;" ref="tagdom"  @click="filter"   value="洋片">123</button> -->
-        <button style="margin-right: 3px;" :ref="setItemRef" v-for="(tag,index) in tags" :data-id="index" :key="index" @click="filter(index)"
-            :value="tag">{{tag}}</button>
-        <template v-if ="temp != '' " v-for="item in temp" >
+        <button style="margin-right: 3px;" :ref="setItemRef" v-for="(tag,index) in tags" :data-id="index" :key="index"
+            @click="filter(index)" :value="tag">{{tag}}</button>
+        <div style="display:flex">
+            <div v-for="movie in movies" style="margin-right: 3px;" >
+
+                <p>電影:{{movie.name}}</p>
+                <p>類型:{{movie.tag}}</p>
+
+            </div>
+        </div>
+
+        <template v-if="temp != ''  " v-for="item in temp">
             <p>電影:{{item.name}}</p>
-            <p>類型:{{item.tag}}</p> 
+            <p>類型:{{item.tag}}</p>
 
         </template>
         <div v-else>
@@ -86,7 +96,7 @@
             },
             methods: {
                 filter(index) {
-                    this.tempTag =  this.itemRefs[index].value;
+                    this.tempTag = this.itemRefs[index].value;
                     this.temp = this.movies.filter((item) => item.tag === this.tempTag);
                     console.log(this.temp)
                 },
@@ -101,10 +111,6 @@
         createApp(app).mount("#app");
 
 
-        // import { test ,name} from "./module.js";
-        // import defaultData from "./module.js";
-        // console.log(test,name("小明"))
-        // console.log(defaultData.data)
 
 
 
