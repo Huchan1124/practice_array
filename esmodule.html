@@ -6,15 +6,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-
-
 </head>
 
 <body>
     <div id="app">
         <div style="margin-bottom: 5px;">
-            <input style="margin-right: 3px;" ref="movieName" type="text" placeholder="請輸入電影名稱">
-            <input style="margin-right: 3px;" ref="movieTag" type="text" placeholder="請輸入電影標籤">
+            <input style="margin-right: 3px;"  type="text" placeholder="請輸入電影名稱" v-model="movieNameInput">
+            <input style="margin-right: 3px;"  type="text" placeholder="請輸入電影標籤" v-model="movieTagInput">
             <button @click="addMovie">新增</button>
         </div>
 
@@ -41,72 +39,63 @@
             <p>請選擇欲顯示資料</p>
 
         </div>
-
-
-
-
-
     </div>
 
     <script>
-
-
-
-
         const data = {
+            movieNameInput:"",
+            movieTagInput:"",
             temp: "",
             tempTag: "",
             tags: [
                 {
-                    id:1,
+                    id: 1,
                     name: "洋片"
                 },
                 {
-                    id:2,
-                    name:  "日片"
+                    id: 2,
+                    name: "日片"
                 },
                 {
-                    id:3,
+                    id: 3,
                     name: "台片"
                 },
-               
+
             ],
             itemRefs: [],
             movies: [
                 {
-                    id:1,
+                    id: 1,
                     name: "蜘蛛人",
                     tag: "洋片"
                 },
                 {
-                    id:2,
+                    id: 2,
                     name: "銀魂",
                     tag: "日片"
                 },
                 {
-                    id:3,
+                    id: 3,
                     name: "藍色大門",
                     tag: "台片"
                 },
                 {
-                    id:4,
+                    id: 4,
                     name: "大佛普拉斯",
                     tag: "台片"
                 },
                 {
-                    id:5,
+                    id: 5,
                     name: "三年A班",
                     tag: "日片"
                 },
                 {
-                    id:6,
+                    id: 6,
                     name: "史賓賽",
                     tag: "洋片"
                 },
             ]
         }
-
-
     </script>
 
     <script type="module">
@@ -126,8 +115,8 @@
                 },
                 addMovie() {
                     const id = this.movies.length + 1;
-                    const name = this.$refs.movieName.value;
-                    const tag = this.$refs.movieTag.value;
+                    const name = this.movieNameInput;
+                    const tag = this.movieTagInput;
 
                     const obj = {
                         id,
@@ -135,13 +124,16 @@
                         tag
                     };
 
+                    this.movieNameInput = '';
+                    this.movieTagInput = '';
+
                     this.movies.push(obj);
 
                 },
                 removeMovie(index) {
                     const removeMovieIndex = this.$refs.removeBtn[index].dataset.id;
 
-                    this.movies.splice(removeMovieIndex,1);
+                    this.movies.splice(removeMovieIndex, 1);
 
                 },
                 setItemRef(el) {
@@ -153,15 +145,6 @@
         }
 
         createApp(app).mount("#app");
-
-
-
-
-
-
-
-
-
     </script>
 
 </body>
