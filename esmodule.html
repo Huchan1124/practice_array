@@ -21,17 +21,20 @@
         <button style="margin-right: 3px;" :ref="setItemRef" v-for="(tag,index) in tags" :data-id="index" :key="tag"
             @click="filter(index)" :value="tag">{{tag}}</button>
         <div style="display:flex">
-            <div v-for="movie in movies" style="margin-right: 3px;">
-
-                <p>電影:{{movie.name}}</p>
-                <p>類型:{{movie.tag}}</p>
-
+            <div v-for="(movie,index) in movies" style="margin-right: 3px;">
+                <div style="display:flex;align-items:center">
+                    <p>電影:{{movie.name}}</p>
+                    <p>類型:{{movie.tag}}</p>
+                    <button ref="removeBtn" :data-id="index" style="width:50px;" @click="removeMovie(index)">刪除</button>
+                </div>
             </div>
         </div>
 
-        <template v-if="temp" v-for="item in temp">
-            <p>電影:{{item.name}}</p>
-            <p>類型:{{item.tag}}</p>
+        <template v-if="temp" v-for="(item,index) in temp">
+            <div style="display:flex;align-items:center">
+                <p>電影:{{item.name}}</p>
+                <p>類型:{{item.tag}}</p>
+            </div>
 
         </template>
         <div v-else>
@@ -116,6 +119,12 @@
                     };
 
                     this.movies.push(obj);
+
+                },
+                removeMovie(index) {
+                    const removeMovieIndex = this.$refs.removeBtn[index].dataset.id;
+
+                    this.movies.splice(removeMovieIndex,1);
 
                 },
                 setItemRef(el) {
