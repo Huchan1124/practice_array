@@ -18,10 +18,10 @@
             <button @click="addMovie">新增</button>
         </div>
 
-        <button style="margin-right: 3px;" :ref="setItemRef" v-for="(tag,index) in tags" :data-id="index" :key="tag"
-            @click="filter(index)" :value="tag">{{tag}}</button>
+        <button style="margin-right: 3px;" :ref="setItemRef" v-for="(tag,index) in tags" :data-id="index" :key="tag.id"
+            @click="filter(index)" :value="tag.name">{{tag.name}}</button>
         <div style="display:flex">
-            <div v-for="(movie,index) in movies" style="margin-right: 3px;">
+            <div v-for="(movie,index) in movies" :key="movie.id" style="margin-right: 3px;">
                 <div style="display:flex;align-items:center">
                     <p>電影:{{movie.name}}</p>
                     <p>類型:{{movie.tag}}</p>
@@ -30,7 +30,7 @@
             </div>
         </div>
 
-        <template v-if="temp" v-for="(item,index) in temp">
+        <template v-if="temp" v-for="(item,index) in temp" :key="item.name">
             <div style="display:flex;align-items:center">
                 <p>電影:{{item.name}}</p>
                 <p>類型:{{item.tag}}</p>
@@ -57,33 +57,49 @@
             temp: "",
             tempTag: "",
             tags: [
-                "洋片",
-                "日片",
-                "台片"
+                {
+                    id:1,
+                    name: "洋片"
+                },
+                {
+                    id:2,
+                    name:  "日片"
+                },
+                {
+                    id:3,
+                    name: "台片"
+                },
+               
             ],
             itemRefs: [],
             movies: [
                 {
+                    id:1,
                     name: "蜘蛛人",
                     tag: "洋片"
                 },
                 {
+                    id:2,
                     name: "銀魂",
                     tag: "日片"
                 },
                 {
+                    id:3,
                     name: "藍色大門",
                     tag: "台片"
                 },
                 {
+                    id:4,
                     name: "大佛普拉斯",
                     tag: "台片"
                 },
                 {
+                    id:5,
                     name: "三年A班",
                     tag: "日片"
                 },
                 {
+                    id:6,
                     name: "史賓賽",
                     tag: "洋片"
                 },
@@ -109,11 +125,12 @@
                     this.temp = this.movies.filter((item) => item.tag === this.tempTag);
                 },
                 addMovie() {
-
+                    const id = this.movies.length + 1;
                     const name = this.$refs.movieName.value;
                     const tag = this.$refs.movieTag.value;
 
                     const obj = {
+                        id,
                         name,
                         tag
                     };
